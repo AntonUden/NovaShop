@@ -15,7 +15,7 @@ public class ShopDecoder {
 		JSONArray jsonCategories = json.getJSONArray("categories");
 		
 		List<ShopCategory> categories = new ArrayList<>();
-
+		
 		for (int i = 0; i < jsonCategories.length(); i++) {
 			JSONObject jsonCategory = jsonCategories.getJSONObject(i);
 

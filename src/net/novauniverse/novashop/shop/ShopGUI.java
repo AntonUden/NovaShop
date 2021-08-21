@@ -54,6 +54,30 @@ public class ShopGUI {
 	}
 
 	public static void openCategory(Player player, ShopCategory category) {
-
+		openCategory(player, category, 1);
+	}
+	
+	public static void openCategory(Player player, ShopCategory category, int page) {
+		int totalPages = 1;
+		
+		GUIReadOnlyHolder holder = new GUIReadOnlyHolder();
+		Inventory inventory = Bukkit.getServer().createInventory(holder, 6*9, category.getName() + ". Page " + page + "/" + totalPages);
+		
+		for (int i = 0; i < inventory.getSize(); i++) {
+			inventory.setItem(i, VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE));
+		}
+		
+		inventory.setItem(0, new ItemBuilder(Material.BARRIER).setName(ChatColor.RED + "Back").build());
+		holder.addClickCallback(0, new GUIClickCallback() {
+			@Override
+			public GUIAction onClick(Inventory clickedInventory, Inventory inventory, HumanEntity entity, int clickedSlot, SlotType slotType, InventoryAction clickType) {
+				if(entity instanceof Player) {
+					openMainMenu((Player) entity);
+				}
+				return GUIAction.CANCEL_INTERACTION;
+			}
+		});
+		
+		player.openInventory(inventory);
 	}
 }
