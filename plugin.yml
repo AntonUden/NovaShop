@@ -1,0 +1,6 @@
+main: net.novauniverse.novashop.NovaShop
+name: NovaShop
+description: A shop plugin
+version: 1.0
+
+depend: [NovaCore, Vault]
