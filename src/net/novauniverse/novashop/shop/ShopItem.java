@@ -18,7 +18,7 @@ public class ShopItem {
 		this.buyPrice = buyPrice;
 		this.sellPrice = sellPrice;
 
-		ItemBuilder builder = new ItemBuilder(item);
+		ItemBuilder builder = new ItemBuilder(item.clone());
 
 		builder.addLore(ChatColor.GOLD + " ");
 		if (canBuy()) {

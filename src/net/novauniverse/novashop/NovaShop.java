@@ -9,10 +9,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import net.milkbowl.vault.economy.Economy;
 import net.novauniverse.novashop.command.ShopCommand;
 import net.novauniverse.novashop.shop.ShopCategory;
 import net.novauniverse.novashop.shop.ShopDecoder;
@@ -25,11 +27,17 @@ import net.zeeraa.novacore.spigot.module.modules.gui.GUIManager;
 public class NovaShop extends JavaPlugin implements Listener {
 	private static NovaShop instance;
 
+	private Economy economy;
+
 	private String currencyName;
 	private List<ShopCategory> categories;
 
 	public static NovaShop getInstance() {
 		return instance;
+	}
+
+	public Economy getEconomy() {
+		return economy;
 	}
 
 	@Override
@@ -48,6 +56,14 @@ public class NovaShop extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 
 		CommandRegistry.registerCommand(new ShopCommand(getConfig().getString("shop-command")));
+
+		RegisteredServiceProvider<Economy> rsp = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			Log.fatal(getName(), "No economy service found. Shutting down");
+			Bukkit.getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+		economy = rsp.getProvider();
 
 		try {
 			reloadShop();
@@ -73,5 +89,6 @@ public class NovaShop extends JavaPlugin implements Listener {
 	public void reloadShop() throws JSONException, IOException {
 		JSONObject json = JSONFileUtils.readJSONObjectFromFile(new File(getDataFolder().getAbsolutePath() + File.separator + "shop.json"));
 		categories = ShopDecoder.decodeShopData(json);
+		Log.info(getName(), categories.size() + " categories loaded");
 	}
 }

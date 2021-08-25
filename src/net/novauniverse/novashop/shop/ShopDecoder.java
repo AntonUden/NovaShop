@@ -57,7 +57,7 @@ public class ShopDecoder {
 			JSONArray itemsArray = jsonCategory.getJSONArray("items");
 
 			for (int j = 0; j < itemsArray.length(); j++) {
-				JSONObject jsonItem = itemsArray.getJSONObject(i);
+				JSONObject jsonItem = itemsArray.getJSONObject(j);
 
 				double buyPrice = 0;
 				double sellPrice = 0;
@@ -88,7 +88,7 @@ public class ShopDecoder {
 				items.add(new ShopItem(item, buyPrice, sellPrice));
 			}
 
-			new ShopCategory(slot, name, icon, items);
+			categories.add(new ShopCategory(slot, name, icon, items));
 		}
 
 		return categories;
