@@ -220,10 +220,9 @@ public class ShopGUI {
 				}
 
 				ItemStack stack = player.getInventory().getItem(i);
-
 				if (toRemove >= stack.getAmount()) {
 					toRemove -= stack.getAmount();
-					player.getInventory().setItem(i, ItemBuilder.AIR);
+					player.getInventory().setItem(i, new ItemBuilder(Material.BARRIER).setName("REMOVED").build());
 				} else {
 					ItemStack newStack = stack.clone();
 					newStack.setAmount(newStack.getAmount() - toRemove);
@@ -235,7 +234,6 @@ public class ShopGUI {
 			EconomyResponse sellResponse = NovaShop.getInstance().getEconomy().depositPlayer(player, shopItem.getBuyPrice());
 
 			if (sellResponse.type == ResponseType.SUCCESS) {
-				player.getInventory().addItem(shopItem.getItem());
 				player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1F, 1F);
 			} else {
 				player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
