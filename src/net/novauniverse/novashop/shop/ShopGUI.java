@@ -236,7 +236,7 @@ public class ShopGUI {
 				}
 			}
 
-			EconomyResponse sellResponse = NovaShop.getInstance().getEconomy().depositPlayer(player, shopItem.getBuyPrice());
+			EconomyResponse sellResponse = NovaShop.getInstance().getEconomy().depositPlayer(player, shopItem.getSellPrice());
 
 			if (sellResponse.type == ResponseType.SUCCESS) {
 				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ORB_PICKUP, 1F, 1F);

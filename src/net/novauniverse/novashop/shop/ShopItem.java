@@ -26,7 +26,7 @@ public class ShopItem {
 		}
 
 		if (canSell()) {
-			builder.addLore(ChatColor.GOLD + "Left click to sell for " + ChatColor.AQUA + buyPrice + NovaShop.getInstance().getCurrencyName());
+			builder.addLore(ChatColor.GOLD + "Left click to sell for " + ChatColor.AQUA + sellPrice + NovaShop.getInstance().getCurrencyName());
 		}
 
 		icon = builder.build();
