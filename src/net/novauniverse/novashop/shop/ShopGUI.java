@@ -18,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import net.novauniverse.novashop.NovaShop;
-import net.zeeraa.novacore.commons.log.Log;
 import net.zeeraa.novacore.spigot.abstraction.VersionIndependantUtils;
 import net.zeeraa.novacore.spigot.abstraction.enums.ColoredBlockType;
 import net.zeeraa.novacore.spigot.module.modules.gui.GUIAction;
@@ -175,6 +174,12 @@ public class ShopGUI {
 	private static void onShopItemClick(Player player, ShopItem shopItem, ShopAction action) {
 		switch (action) {
 		case SELL:
+			if (!shopItem.canSell()) {
+				player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
+				player.sendMessage(ChatColor.RED + "You cant sell this item");
+				break;
+			}
+
 			if (!NovaShop.getInstance().getEconomy().hasAccount(player)) {
 				player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You dont have an economy account");
@@ -244,6 +249,12 @@ public class ShopGUI {
 			break;
 
 		case BUY:
+			if (!shopItem.canBuy()) {
+				player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1F, 1F);
+				player.sendMessage(ChatColor.RED + "You cant buy this item");
+				break;
+			}
+
 			boolean hasEmptySpace = false;
 
 			for (int i = 0; i < 4 * 9; i++) {
