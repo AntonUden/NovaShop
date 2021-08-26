@@ -1,7 +1,10 @@
 package net.novauniverse.novashop;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,8 @@ public class NovaShop extends JavaPlugin implements Listener {
 
 	private String currencyName;
 	private List<ShopCategory> categories;
+
+	private File shopFile;
 
 	public static NovaShop getInstance() {
 		return instance;
@@ -65,6 +70,36 @@ public class NovaShop extends JavaPlugin implements Listener {
 		}
 		economy = rsp.getProvider();
 
+		shopFile = new File(getDataFolder().getAbsolutePath() + File.separator + "shop.json");
+
+		try {
+			if (!shopFile.exists()) {
+				InputStream in = getClass().getResourceAsStream("/shop.json");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+				String lines = "";
+
+				while (true) {
+					String line = reader.readLine();
+
+					if (line == null) {
+						break;
+					}
+
+					lines += line;
+				}
+
+				JSONObject defaultShopJson = new JSONObject(lines);
+
+				JSONFileUtils.saveJson(shopFile, defaultShopJson, 4);
+
+				Log.info(getName(), "shop.json has been created");
+			}
+		} catch (IOException e) {
+			Log.error(getName(), "Failed to setup default shop file");
+			e.printStackTrace();
+		}
+
 		try {
 			reloadShop();
 		} catch (JSONException | IOException e) {
@@ -87,7 +122,7 @@ public class NovaShop extends JavaPlugin implements Listener {
 	}
 
 	public void reloadShop() throws JSONException, IOException {
-		JSONObject json = JSONFileUtils.readJSONObjectFromFile(new File(getDataFolder().getAbsolutePath() + File.separator + "shop.json"));
+		JSONObject json = JSONFileUtils.readJSONObjectFromFile(shopFile);
 		categories = ShopDecoder.decodeShopData(json);
 		Log.info(getName(), categories.size() + " categories loaded");
 	}

@@ -1,0 +1,110 @@
+{
+	"categories": [
+		{
+			"name": "Items",
+			"slot": 21,
+			"icon": {
+				"material": "STICK",
+				"lore": [
+					"Just a bunch of items"
+				]
+			},
+			"items": [
+				{
+					"buy_price": 1,
+					"sell_price": 0.5,
+					"item": {
+						"material": "STICK"
+					}
+				},
+				{
+					"buy_price": 5,
+					"sell_price": 2.5,
+					"item": {
+						"material": "COAL"
+					}
+				},
+				{
+					"buy_price": 100,
+					"sell_price": 50,
+					"item": {
+						"material": "DIAMOND"
+					}
+				},
+				{
+					"buy_price": 30,
+					"sell_price": 15,
+					"item": {
+						"material": "BLAZE_ROD"
+					}
+				}
+			]
+		},
+		{
+			"name": "Weapons",
+			"slot": 22,
+			"icon": {
+				"material": "DIAMOND_SWORD"
+			},
+			"items": [
+				{
+					"buy_price": 10,
+					"sell_price": 5,
+					"item": {
+						"material": "WOOD_SWORD"
+					}
+				},
+				{
+					"buy_price": 200,
+					"sell_price": 100,
+					"item": {
+						"material": "DIAMOND_SWORD"
+					}
+				},
+				{
+					"buy_price": 30,
+					"sell_price": 15,
+					"item": {
+						"material": "BOW"
+					}
+				}
+			]
+		},
+		{
+			"name": "Food",
+			"slot": 23,
+			"icon": {
+				"material": "COOKED_BEEF"
+			},
+			"items": [
+				{
+					"buy_price": 2,
+					"sell_price": 1,
+					"item": {
+						"material": "COOKED_BEEF"
+					}
+				},
+				{
+					"buy_price": 2,
+					"sell_price": 1,
+					"item": {
+						"material": "COOKED_FISH"
+					}
+				},
+				{
+					"buy_price": 2,
+					"sell_price": 1,
+					"item": {
+						"material": "COOKED_CHICKEN"
+					}
+				},
+				{
+					"buy_price": 10000,
+					"item": {
+						"material": "CAKE"
+					}
+				}
+			]
+		}
+	]
+}

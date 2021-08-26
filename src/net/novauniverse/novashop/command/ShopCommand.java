@@ -14,6 +14,8 @@ public class ShopCommand extends NovaCommand {
 	public ShopCommand(String name) {
 		super(name, NovaShop.getInstance());
 
+		addSubCommand(new ShopReloadCommand());
+		addHelpSubCommand();
 		setAllowedSenders(AllowedSenders.PLAYERS);
 		setPermissionDefaultValue(PermissionDefault.TRUE);
 		setPermission("novashop.command.shop");
