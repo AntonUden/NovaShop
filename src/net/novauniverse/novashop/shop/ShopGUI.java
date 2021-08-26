@@ -227,7 +227,7 @@ public class ShopGUI {
 				ItemStack stack = player.getInventory().getItem(i);
 				if (toRemove >= stack.getAmount()) {
 					toRemove -= stack.getAmount();
-					player.getInventory().setItem(i, new ItemBuilder(Material.BARRIER).setName("REMOVED").build());
+					player.getInventory().setItem(i, ItemBuilder.AIR);
 				} else {
 					ItemStack newStack = stack.clone();
 					newStack.setAmount(newStack.getAmount() - toRemove);
