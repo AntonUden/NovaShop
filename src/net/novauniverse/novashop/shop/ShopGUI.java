@@ -34,7 +34,7 @@ public class ShopGUI {
 		Inventory inventory = Bukkit.getServer().createInventory(holder, 6 * 9, "Shop");
 
 		for (int i = 0; i < inventory.getSize(); i++) {
-			inventory.setItem(i, new ItemBuilder(VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setAmount(1).build());
+			inventory.setItem(i, new ItemBuilder(VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setName(" ").setAmount(1).build());
 		}
 
 		inventory.setItem(0, new ItemBuilder(Material.BARRIER).setAmount(1).setName(ChatColor.RED + "Close").build());
@@ -79,7 +79,7 @@ public class ShopGUI {
 		Inventory inventory = Bukkit.getServer().createInventory(holder, 6 * 9, category.getName() + ". Page " + page + "/" + totalPages);
 
 		for (int i = 0; i < inventory.getSize(); i++) {
-			inventory.setItem(i, new ItemBuilder(VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setAmount(1).build());
+			inventory.setItem(i, new ItemBuilder(VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setName(" ").setAmount(1).build());
 		}
 
 		inventory.setItem(1, new ItemBuilder(Material.BARRIER).setName(ChatColor.RED + "Back").build());

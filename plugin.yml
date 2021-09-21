@@ -4,3 +4,8 @@ description: A shop plugin
 version: 1.0
 
 depend: [NovaCore, Vault]
+
+permissions:
+   novapixelmon.joinfullserver:
+       description: Allow players to join even if the server is full
+       default: op
