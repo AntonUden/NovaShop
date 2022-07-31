@@ -17,9 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import net.novauniverse.novashop.NovaShop;
-import net.zeeraa.novacore.spigot.abstraction.VersionIndependantUtils;
+import net.zeeraa.novacore.spigot.abstraction.VersionIndependentUtils;
 import net.zeeraa.novacore.spigot.abstraction.enums.ColoredBlockType;
-import net.zeeraa.novacore.spigot.abstraction.enums.VersionIndependantSound;
+import net.zeeraa.novacore.spigot.abstraction.enums.VersionIndependentSound;
 import net.zeeraa.novacore.spigot.module.modules.gui.GUIAction;
 import net.zeeraa.novacore.spigot.module.modules.gui.callbacks.GUIClickCallback;
 import net.zeeraa.novacore.spigot.module.modules.gui.holders.GUIReadOnlyHolder;
@@ -34,7 +34,7 @@ public class ShopGUI {
 		Inventory inventory = Bukkit.getServer().createInventory(holder, 6 * 9, "Shop");
 
 		for (int i = 0; i < inventory.getSize(); i++) {
-			inventory.setItem(i, new ItemBuilder(VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setName(" ").setAmount(1).build());
+			inventory.setItem(i, new ItemBuilder(VersionIndependentUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setName(" ").setAmount(1).build());
 		}
 
 		inventory.setItem(0, new ItemBuilder(Material.BARRIER).setAmount(1).setName(ChatColor.RED + "Close").build());
@@ -79,7 +79,7 @@ public class ShopGUI {
 		Inventory inventory = Bukkit.getServer().createInventory(holder, 6 * 9, category.getName() + ". Page " + page + "/" + totalPages);
 
 		for (int i = 0; i < inventory.getSize(); i++) {
-			inventory.setItem(i, new ItemBuilder(VersionIndependantUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setName(" ").setAmount(1).build());
+			inventory.setItem(i, new ItemBuilder(VersionIndependentUtils.get().getColoredItem(DyeColor.WHITE, ColoredBlockType.GLASS_PANE)).setName(" ").setAmount(1).build());
 		}
 
 		inventory.setItem(1, new ItemBuilder(Material.BARRIER).setName(ChatColor.RED + "Back").build());
@@ -99,7 +99,7 @@ public class ShopGUI {
 			public GUIAction onClick(Inventory clickedInventory, Inventory inventory, HumanEntity entity, int clickedSlot, SlotType slotType, InventoryAction clickType) {
 				if (entity instanceof Player) {
 					if (page > 1) {
-						VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ORB_PICKUP, 1F, 1F);
+						VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ORB_PICKUP, 1F, 1F);
 						openCategory(player, category, page - 1);
 					}
 				}
@@ -115,7 +115,7 @@ public class ShopGUI {
 			public GUIAction onClick(Inventory clickedInventory, Inventory inventory, HumanEntity entity, int clickedSlot, SlotType slotType, InventoryAction clickType) {
 				if (entity instanceof Player) {
 					if (page < totalPagesFinal) {
-						VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ORB_PICKUP, 1F, 1F);
+						VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ORB_PICKUP, 1F, 1F);
 						openCategory(player, category, page + 1);
 					}
 				}
@@ -175,13 +175,13 @@ public class ShopGUI {
 		switch (action) {
 		case SELL:
 			if (!shopItem.canSell()) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You cant sell this item");
 				break;
 			}
 
 			if (!NovaShop.getInstance().getEconomy().hasAccount(player)) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You dont have an economy account");
 				break;
 			}
@@ -213,7 +213,7 @@ public class ShopGUI {
 			}
 
 			if (foundAmount < amountToRemove) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You dont have enough items to sell");
 				break;
 			}
@@ -239,9 +239,9 @@ public class ShopGUI {
 			EconomyResponse sellResponse = NovaShop.getInstance().getEconomy().depositPlayer(player, shopItem.getSellPrice());
 
 			if (sellResponse.type == ResponseType.SUCCESS) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ORB_PICKUP, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ORB_PICKUP, 1F, 1F);
 			} else {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "Failed to deposit money to your account. Please contact staff. Reason: " + sellResponse.type.name());
 				break;
 			}
@@ -250,7 +250,7 @@ public class ShopGUI {
 
 		case BUY:
 			if (!shopItem.canBuy()) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You cant buy this item");
 				break;
 			}
@@ -272,19 +272,19 @@ public class ShopGUI {
 			}
 
 			if (!hasEmptySpace) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You need atleast 1 empty slot in your inventory to buy items");
 				break;
 			}
 
 			if (!NovaShop.getInstance().getEconomy().hasAccount(player)) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You dont have an economy account");
 				break;
 			}
 
 			if (!NovaShop.getInstance().getEconomy().has(player, shopItem.getBuyPrice())) {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "You dont have enough money to buy this");
 				break;
 			}
@@ -293,9 +293,9 @@ public class ShopGUI {
 
 			if (buyResponse.type == ResponseType.SUCCESS) {
 				player.getInventory().addItem(shopItem.getItem());
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ORB_PICKUP, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ORB_PICKUP, 1F, 1F);
 			} else {
-				VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.ITEM_BREAK, 1F, 1F);
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.ITEM_BREAK, 1F, 1F);
 				player.sendMessage(ChatColor.RED + "Failed to withdraw money from your account. Reason: " + buyResponse.type.name());
 				break;
 			}
